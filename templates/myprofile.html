@@ -1,0 +1,71 @@
+<ion-view title="Organizer Profile">
+    <ion-content class="has-header">
+        <div class="list">
+            <div class="item item-divider">
+                Add Organizer Details
+            </div>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Organizer Name*</span>
+                <input type="text" placeholder="Organizer Name" name="text" ng-model="organizer.firstname" ng-class="allvalidation[0].validation" required required>
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Contact No*</span>
+                <input type="text" placeholder="Contact No" name="contact" ng-change="" ng-model="organizer.contact" ng-class="allvalidation[1].validation" required required>
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Organizer Description*</span>
+                <textarea placeholder="Organizer Description" name="description" ng-model="organizer.description" ng-class="allvalidation[2].validation" required></textarea>
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Organizer Logo*</span>
+                Note * Upload 200px : 200px Image
+            </label>
+            <label>
+                <!-- <span><img src="{{'http://localhost/eglapp11/demo/'+organizer.logo}}" width="200px" height="200px" ng-show="organizer.logo!=''"></span> -->
+
+                <button class="button button-icon icon ion-image" ng-click="takePicture();"></button>
+                <img ng-src="{{cameraimage}}" alt="" style="height:50px;width:50px; margin:5px;">
+                <!--{{myimgapath}}-->
+                <!--............................................File upload..................................................-->
+
+                <!-- <div class="upload-div" ng-controller="MyCtrl">
+                    <div ng-init="httpMethod = 'POST';howToSend = 1;" ></div>
+                
+                    <div class="upload-buttons">
+                        <input type="file" ng-file-select="onFileSelect($files)" onclick="this.value=null">
+                    </div>
+                
+                    <div ng-show="dropSupported" class="drop-box" ng-file-drop="onFileSelect($files)" ng-file-drop-available="dropSupported=true"
+                        ng-file-drag-over-class="dragOverClass($event)" ng-file-drag-over-delay="100">or drop files here</div>
+                    <div ng-show="!dropSupported">HTML5 Drop File is not supported on this browser</div>
+                
+                    <div class="err" ng-show="errorMsg != null">{{errorMsg}}</div>
+                
+                    <div ng-show="selectedFiles != null">
+                        <div class="sel-file" ng-repeat="f in selectedFiles">
+                            <div ng-show="$last">
+                                <img ng-show="dataUrls[$index]" ng-src="{{dataUrls[$index]}}" width="240px">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="response" ng-show="uploadResult.length > 0">
+                        <span ng-repeat="result in uploadResult">
+                
+                                    <p ng-show="$last">{{result}}</p>
+                
+                        </span>
+                
+                    </div>
+                </div> -->
+
+                <!--............................................Filr upload..................................................-->
+
+
+            </label>
+            <!-- <a class="button button-full button-balanced" ng-click="">Save</a> -->
+            <input type="submit" name="submit" value="Save" class="button button-block button-balanced" ng-click="saveorganizer(organizer)">
+        </div>
+        <!--{{myupload|json}}
+        {{getlast()}}-->
+    </ion-content>
+</ion-view>

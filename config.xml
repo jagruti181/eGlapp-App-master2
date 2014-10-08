@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.phonegap.helloworld" version="1.0.0">
+
+    <name>eGlapp</name>
+
+    <description>
+        Join events
+    </description>
+
+    <author href="http://wohlig.com" email="info@wohlig.com">
+        Wohlig Technologies
+    </author>
+    <gap:platform name="ios" />
+    <gap:platform name="android" />
+    <gap:platform name="winphone" />
+
+    <icon src="eglapp.png"/> 
+    <preference name="permissions" value="none"/>
+    <preference name="fullscreen" value="false"/>
+    <preference name="orientation" value="portrait" />
+    <preference name="splash-screen-duration" value="10000"/>
+    <gap:plugin name="org.apache.cordova.camera" />
+    <gap:plugin name="org.apache.cordova.file"  />
+    <gap:plugin name="org.apache.cordova.file-transfer"  />
+    <gap:plugin name="com.phonegap.plugins.barcodescanner" />
+    <access origin="*"/> 
+    <access headers="Content-Type"/>
+    <preference name="LoadUrlTimeoutValue" value="20000" />
+    <gap:plugin name="org.apache.cordova.media"  />
+    <gap:plugin name="org.apache.cordova.media-capture"  />
+    <gap:plugin name="org.apache.cordova.splashscreen"  />
+</widget>

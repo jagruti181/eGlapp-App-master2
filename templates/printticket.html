@@ -1,0 +1,122 @@
+<ion-view title="Ticket">
+    <ion-content class="has-header">
+        <ion-nav-buttons side="right">
+        </ion-nav-buttons>
+
+        <div>
+            <div class="row">
+                <div class="col col-70">
+                    <h3>{{printticket.title}}</h3>
+                    <p>
+                        <b>From:</b>{{printticket.startdate}}, {{printticket.starttime}} - {{printticket.enddate}},{{printticket.endtime}}
+                    </p>
+                    <p>
+                        <b>Location:</b>{{printticket.city}}
+                    </p>
+                </div>
+                <div class="col col-30">
+                    <img ng-repeat="value in printticket.usertickets" src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data={{value.quantity}}" ng-show="qrcode" alt="Scan the code" class="img-responsive qrcode">
+                    <div>
+                    <img src="eglapp11/{{imageqrpost}}" class="qrcodeimg" ng-class="postqrimage" height="100px" width="202px">
+                    </div>
+                    <div ng-show="prebanner">
+                    <img src="eglapp11/{{imageqrpre}}" class="qrcodeimg" ng-class="predisplay" height="100px" width="202px">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="row">
+                <div class="col col-70">
+                    <div class="row">
+                        <div class="col">
+                        <img src="../eglapp11/demo/{{image[1]}}" height="100%" width="100%">
+                        </div>
+                        <div class="col">
+                        <img src="../eglapp11/demo/{{image[2]}}" height="100%" width="100%">
+                        </div>
+                        <div class="col">
+                        <img src="../eglapp11/demo/{{image[3]}}" height="100%" width="100%">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                        <img src="../eglapp11/demo/{{image[4]}}" height="100%" width="100%">
+                        </div>
+                        <div class="col">
+                        <img src="../eglapp11/demo/{{image[5]}}" height="100%" width="100%">
+                        </div>
+                        <div class="col">
+                        <img src="../eglapp11/demo/{{image[6]}}" height="100%" width="100%">
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-30">
+                <div>
+                    <table class="table">
+                <thead>
+                    <tr>
+                        <th><b>Ticket Category</th>
+                        <th><b>Ticket Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="value in printticket.usertickets">
+                        <td>{{value.ticket}}</td>
+                        <td>{{value.quantity}}</td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+                </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="row">
+            <div class="col col-5">
+                <button class="button button-small button-balanced">
+                  Print
+                </button>
+            </div>
+        </div> -->
+        
+    </ion-content>
+</ion-view>
+<!--
+<ion-view title="Ticket">
+    <ion-content class="has-header">
+        <ion-nav-buttons side="right">
+        </ion-nav-buttons>
+
+        <div class="img-header">
+            <img src="{{'http://localhost/eglapp11/demo/'+printticket.logo}}" class="full-image">
+        </div>
+        <img src="{{'http://localhost/eglapp11/demo/'+printticket.logo}}" class="discover-image">
+        <h4 class="text-center">{{printticket.title}}</h4>
+
+        <div class="list  text-center">
+            <div class="item">
+                <p><i class="icon ion-calendar"></i><br> {{printticket.startdate}} @ {{printticket.starttime}} - {{printticket.endtime}}</p>
+            </div>
+            <div class="item">
+                <iframe width="100%" height="150" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=Mumbai%2C%20Maharashtra%2C%20India&key=AIzaSyCPdr5VG2QmzUdpExEivaSEMjm0vI3_Su4"></iframe>
+                
+                
+                <p><i class="icon ion-location"></i><br>Mumbai Bank
+                    <br>{{printticket.location}}
+                    <br>400099
+                    <br>
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=23" alt="Scan the code" class="img-responsive qrcode"></p>
+            </div>
+            <div class="item">
+                <p><i class="icon ion-person"></i>
+                    <br>by {{printticket.organizername}}</p>
+            </div>
+            <div class="item">
+                <span class="balanced">{{addticket}} Ticket</span>
+            </div>
+        </div>
+        
+    </ion-content>
+</ion-view>
+-->

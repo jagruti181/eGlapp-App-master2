@@ -1,0 +1,32 @@
+<ion-view title="My Events">
+    <ion-content class="has-header">
+        <ion-nav-buttons side="right">
+            
+        </ion-nav-buttons>
+        <div class="list">
+           
+            <div class="item item-divider">My Events</div>
+            <div ng-repeat="val in find">
+                <div>
+                   <a class="item item-thumbnail-left" href="#/app/discover/inner/{{val.id}}">
+                    <img src="{{imagepath+'admin/upload/event/'+val.logo}}">
+                    <h2>{{val.title}}</h2>
+                    <p>{{val.location}}</p>
+                    <span class="date">{{val.startdate}} @ {{val.starttime}}<span>
+                  <span class="item-note balanced">
+                      Free
+                  </span>
+                </a>
+                    <div class="button-bar">
+                      <a href="#/app/updateevent/{{val.id}}" class="button button-small button-positive">Update</a>
+                      <a class="button button-small  button-assertive" ng-click="deleteevent(val.id)">Delete</a>
+                      <a class="button button-small button-stable" href="" ng-click="makelive(val.id)" ng-show="val.makelive==0">Make Live</a>
+                      <a class="button button-small button-stable" href="" ng-click="makelive(val.id)" ng-show="val.makelive==1">Disable</a>
+                    </div>
+
+                </div>
+            </div>
+            
+        </div>
+    </ion-content>
+</ion-view>

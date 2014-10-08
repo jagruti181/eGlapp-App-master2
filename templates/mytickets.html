@@ -1,0 +1,15 @@
+<ion-view title="My Tickets">
+    <ion-content class="has-header">
+       <ion-nav-buttons side="right">
+           <button class="button button-icon icon ion-qr-scanner" ng-click="scanBarcode();"></button>
+        </ion-nav-buttons>
+        <div class="list">
+            <a class="item item-avatar" href="#/app/printticket/{{myticket.user}}/{{myticket.eventid}}" ng-repeat="myticket in data">
+                <img ng-src="{{'http://localhost/eglapp11/demo/'+myticket.logo}}">
+                <h2>{{myticket.eventtitle}}</h2>
+                <span class="date">{{myticket.startdate}} @ 9:30 PM</span>
+            </a>
+        </div>
+
+                        </ion-content>
+                        </ion-view>

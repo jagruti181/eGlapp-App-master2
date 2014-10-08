@@ -1,0 +1,75 @@
+<ion-view title="My Contacts">
+    <ion-content class="has-header">
+        <ion-nav-buttons side="right">
+        </ion-nav-buttons>
+
+        <div>
+            <div class="row">
+                <div class="col col-20">
+                    <p>
+                    <h4>Options</h4>
+                     <select ng-model="select" class="form-control" ng-change="getoption(select)" required>
+                        <option value="import" ng-disabled="impo">Import</option>
+                        <option value="selectall" ng-disabled="sel">Select All</option>
+                        <option value="deleteall" ng-disabled="del">Delete All</option>
+                    </select>
+                    <a href="{{serverpath}}event/exportcsv?uid={{uid}}&eid={{selectedevent}}" target="_blank" class="button button-tiny  button-assertive" ng-disabled="exp">Export</a>
+                </p>
+                </div>
+                <div class="col col-40">
+                   <p>
+                    <h4>Event</h4>
+                    <select class="form-control" ng-model="event" ng-change="hello(event)" required>
+                        <option value="{{val.id}}" ng-repeat="val in find">{{val.title}}</option>
+                    </select>
+                    </p>
+                </div>
+                <div class="col col-40">
+                    <h6>Multiple Select Option</h6>
+                    <a class="button button-small button-balanced" ng-click="sendselected(sponsor)" ng-disabled="send">Send</a>
+                    <a class="button button-small button-balanced" ng-click="deleteselected(sponsor)" ng-disabled="delete">Delete</a>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="msg">
+            {{usermessage}}
+    </div>
+        <div ng-show="table">
+                 <table class="tableborder table" border="1">
+                     <tr>
+                         <th>
+                             
+                         </th>
+                         <th>
+                             
+                         </th>
+                         <th colspan="3">
+                             
+                         </th>
+                     </tr>
+                     <tr class="botm" ng-repeat="value in useremail">
+                         <td>
+                             <input type="checkbox" ng-model="value.selected">
+                         </td>
+                         <td>
+                             {{value.email}}
+                         </td>
+                         <td>
+                             <a href="#/app/emailupdate/{{value.id}}" class="button button-tiny button-positive">Update</a>
+                         </td>
+                         <td>
+                             <a class="button button-tiny  button-assertive" ng-click="deleteemail(value.id)">Delete</a>
+                         </td>
+                         <td>
+                             <a class="button button-tiny  button-balanced" ng-click="sendoneemail(value.email)">Send</a>
+                         </td>
+                     </tr>
+                     
+                 </table>
+        </div>
+        <div ng-show="import">
+            <input type="file">
+        </div>
+    </ion-content>
+</ion-view>

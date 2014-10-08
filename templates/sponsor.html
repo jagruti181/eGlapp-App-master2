@@ -1,0 +1,216 @@
+<ion-view title="Sponsor">
+    <ion-content class="has-header">
+            <div class="item item-divider">
+               Sponsor Details
+           </div>
+            <div class="row" ng-show="topdiv">
+                <div class="col">
+                 Category
+                 <p>
+                     <select ng-model="category" class="form-control" ng-change="getevent(category,topic)" required>
+                   
+                    <option ng-repeat="category in categories" value="{{category.id}}">{{category.name}}</option>
+                </select>
+                </p>
+                </div>
+                <div class="col">
+                 Sub Category
+                 <p>
+                     <select ng-model="topic" class="form-control" ng-change="getevent(category,topic)" required>
+                    <option ng-repeat="topic in topics" value="{{topic.id}}">{{topic.name}}</option>
+                </select>
+                </p>
+                </div>
+                <div class="col">
+                 Event
+                 <p>
+                     <select ng-model="event" class="form-control" ng-change="geteventdetail(event)" required>
+                    <option ng-repeat="val in getev" value="{{val.id}}">{{val.title}}</option>
+                </select>
+                </p>
+                </div>
+            </div>
+            <div ng-show="detail">
+                <h4>{{alldata.title}}</h4>
+            </div>
+            <div class="row" ng-show="detail">
+               <div class="col" ng-show="alldata.logo!=''">
+                   <img src="{{'http://localhost/eglapp11/demo/'+alldata.logo}}" class="full-image">
+               </div>
+               <div class="col" ng-show="alldata.logo==''">
+                   <img src="{{'http://localhost/eglapp11/img/default_upload_logo.gif'}}" class="full-image">
+               </div>
+               <div class="col">
+                    <h4>When</h4>
+                    <p>
+                        From : {{alldata.startdate}} AT : {{alldata.starttime}}
+                    </p>
+                    <p>
+                        To : {{alldata.enddate}} AT : {{alldata.endtime}}
+                    </p>
+                    <p>
+                        Location : {{alldata.location}}
+                    </p>
+               </div>
+               <div class="col">
+                    <h4>Organizer</h4>
+                    <p>
+                       {{alldata.organizername}}
+                    </p>
+                    <p>
+                        <p ng-bind-html="alldata.orgdescription"></p>
+                    </p>
+               </div>
+             </div>
+             <div>
+                 <table class="tableborder table" border="1">
+                     <tr>
+                         <th>
+                             Select Option
+                         </th>
+                         <th>
+                             
+                         </th>
+                         <th>
+                             Impression
+                         </th>
+                         <th>
+                             Amount
+                         </th>
+                     </tr>
+                     <tr>
+                         <td>
+                             <input type="checkbox">
+                         </td>
+                         <td>
+                             Pre qr Code Ad 
+                         </td>
+                         <td>
+                             <input type="number" min="0" max="{{alldata.tickets[0].quantity - remainingpreqr}}" ng-model="sponsor.preqr" class="inputborder">
+                             {{alldata.tickets[0].quantity - remainingpreqr}} Remaining
+                         </td>
+                         <td>
+                             $0
+                         </td>
+                     </tr>
+                     <tr>
+                         <td>
+                             <input type="checkbox">
+                         </td>
+                         <td>
+                             Post qr Code Ad 
+                         </td>
+                         <td>
+                             <input type="number" min="0" max="{{alldata.tickets[0].quantity - remainingpostqr}}" class="inputborder" ng-model="sponsor.postqr" class="inputborder">
+                             {{alldata.tickets[0].quantity - remainingpostqr}} Remaining
+                         </td>
+                         <td>
+                             $0
+                         </td>
+                     </tr>
+                     <tr>
+                         <td>
+                             <input type="checkbox">
+                         </td>
+                         <td>
+                             Email Reminder 
+                         </td>
+                         <td>
+                             <input type="number" min="0" max="{{alldata.tickets[0].quantity - remainingreminder}}" class="inputborder" ng-model="sponsor.reminder">
+                     {{alldata.tickets[0].quantity - remainingreminder}} Remaining
+                         </td>
+                         <td>
+                             $0
+                         </td>
+                     </tr>
+                     <tr>
+                         <td>
+                             <input type="checkbox">
+                         </td>
+                         <td>
+                             Email Confirmation 
+                         </td>
+                         <td>
+                             <input type="number" min="0" max="{{alldata.tickets[0].quantity - remainingconfirmation}}" class="inputborder" ng-model="sponsor.confirmation">
+                     {{alldata.tickets[0].quantity - remainingconfirmation}} Remaining
+                         </td>
+                         <td>
+                             $0
+                         </td>
+                     </tr>
+                     <tr>
+                         <td>
+                             <input type="checkbox">
+                         </td>
+                         <td>
+                             Print
+                         </td>
+                         <td>
+                            <div class="row">
+                                <div class="col">
+                                     <input type="text" class="inputborder" ng-model="sponsor.printval" style="width:50px;" disabled>
+                                </div>
+                                <div class="col">
+                                     <input type="number" min="0" max="{{printvalidate}}" class="inputborder" ng-model="sponsor.printimpression" style="width:70px;">
+                                </div>
+                             </div>
+                         </td>
+                         <td>
+                             $0
+                         </td>
+                     </tr>
+                 </table>
+             </div>
+            
+            <label class="item item-input item-stacked-label">
+                    <span class="input-label">Banner</span>
+                    <p>
+                    <img src="{{myimagepath}}admin/upload/sponsor/{{filename2}}">
+                    <button class="button button-icon icon ion-image" ng-click="takePicture();"></button>
+                    <img ng-src="{{cameraimage}}" alt="" style="height:50px;width:50px; margin:5px;">
+                </p>
+            </label>
+               <div>
+                  <p>
+                   Ticket Banner Position
+                   </p>
+               </div>
+            <div class="row">
+                <div class="col">
+                    <div class="smallheight" ng-class="greendiv[1]" ng-click="printtext(1,alldata.tickets[0].quantity - remaining[1])">
+                        {{alldata.tickets[0].quantity - remaining[1]}} Remaining
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="smallheight" ng-class="greendiv[2]" ng-click="printtext(2,alldata.tickets[0].quantity - remaining[2])">
+                        {{alldata.tickets[0].quantity - remaining[2]}} Remaining
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="smallheight" ng-class="greendiv[3]" ng-click="printtext(3,alldata.tickets[0].quantity - remaining[3])">
+                        {{alldata.tickets[0].quantity - remaining[3]}} Remaining
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="smallheight" ng-class="greendiv[4]" ng-click="printtext(4,alldata.tickets[0].quantity - remaining[4])">
+                        {{alldata.tickets[0].quantity - remaining[4]}} Remaining
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="smallheight" ng-class="greendiv[5]" ng-click="printtext(5,alldata.tickets[0].quantity - remaining[5])">
+                        {{alldata.tickets[0].quantity - remaining[5]}} Remaining
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="smallheight" ng-class="greendiv[6]" ng-click="printtext(6,alldata.tickets[0].quantity - remaining[6])">
+                        {{alldata.tickets[0].quantity - remaining[6]}} Remaining
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="submit" name="submit" value="Save" class="button button-block button-balanced" ng-click="savesponsor(sponsor)">
+        
+    </ion-content>
+</ion-view>

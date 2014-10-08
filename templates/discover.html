@@ -1,0 +1,25 @@
+<ion-view title="eGlapp">
+    <ion-content class="has-header">
+        <ion-nav-buttons side="right">
+            <a href="#/app/sponsor" class="button button-small button-positive">Sponsor Event</a>
+        </ion-nav-buttons>
+        <div class="list">
+           
+            <div class="item item-divider">Events</div>
+            
+            <a class="item item-thumbnail-left" href="#/app/discover/inner/{{val.id}}" ng-repeat="val in find">
+                <img src="{{'http://localhost/eglapp11/demo/'+val.logo}}">
+                <h2>{{val.title}}</h2>
+                <p>{{val.location}}</p>
+                <span class="date">{{val.startdate}} @ {{val.starttime}}<span>
+              <span class="item-note balanced">
+                  Free
+              </span>
+            </a>
+            <!-- <div class="button-bar">
+                      <a class="button button-small button-positive">Update</a>
+                      
+            </div> -->
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,58 @@
+<ion-side-menus>
+
+  <ion-pane ion-side-menu-content>
+    <ion-nav-bar class="bar-calm nav-title-slide-ios7">
+        <ion-nav-buttons side="left">
+            <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+        </ion-nav-buttons>
+<!--      <ion-nav-back-button class="button-clear"><i class="icon ion-ios7-arrow-back"></i> Back</ion-nav-back-button>-->
+    </ion-nav-bar>
+    <ion-nav-view name="menuContent" animation="slide-left-right"></ion-nav-view>
+  </ion-pane>
+
+  <ion-side-menu side="left">
+    <header class="bar bar-header bar-calm">
+      <h1 class="title">Menu</h1>
+    </header>
+    <ion-content class="has-header">
+      <ion-list>
+        <ion-item nav-clear class="item-icon-left" menu-close ng-click="login()">
+            <i class="icon ion-person"></i>
+          {{loginlogout}}
+        </ion-item>
+        <ion-item nav-clear class="item-icon-left" menu-close href="#/app/discover">
+            <i class="icon ion-ios7-speedometer"></i>
+          Discover
+        </ion-item>
+        <ion-item nav-clear class="item-icon-left" menu-close href="#/app/createevent">
+            <i class="icon ion-ios7-plus"></i>
+            Create Event
+        </ion-item>
+        <ion-item nav-clear class="item-icon-left" menu-close href="#/app/savedevents">
+              <i class="icon ion-bookmark"></i>
+          Saved Events
+        </ion-item>
+          <ion-item nav-clear class="item-icon-left" menu-close href="#/app/mytickets">
+              <i class="icon ion-ios7-albums"></i>
+          My Tickets
+        </ion-item>
+          <ion-item nav-clear class="item-icon-left" menu-close href="#/app/myevents">
+              <i class="icon ion-ios7-albums"></i>
+          My Events
+        </ion-item>
+          <ion-item nav-clear class="item-icon-left" menu-close href="#/app/myprofile">
+              <i class="icon ion-ios7-albums"></i>
+          My Profile
+        </ion-item>
+          <ion-item nav-clear class="item-icon-left" menu-close href="#/app/sponsor">
+              <i class="icon ion-ios7-albums"></i>
+          Sponsor
+        </ion-item>
+          <ion-item nav-clear class="item-icon-left" menu-close href="#/app/mycontacts">
+              <i class="icon ion-ios7-albums"></i>
+          My Contacts
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-side-menu>
+</ion-side-menus>

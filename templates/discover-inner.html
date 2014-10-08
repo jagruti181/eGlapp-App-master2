@@ -1,0 +1,36 @@
+<ion-view title="Discover">
+    <ion-content class="has-header">
+        <ion-nav-buttons side="right">
+            <a class="button button-icon icon ion-bookmark" ng-click="saveevent()"></a>
+            <a href="#/app/sponsore/{{event.id}}" class="button button-small button-positive">Sponsor</a>
+        </ion-nav-buttons>
+
+        <div class="img-header">
+            <img src="{{'http://localhost/eglapp11/demo/'+event.logo}}" class="full-image">
+        </div>
+        <img src="{{'http://localhost/eglapp11/demo/'+event.logo}}" class="discover-image">
+        <h4 class="text-center">{{event.title}}</h4>
+
+        <div class="list  text-center">
+            <div class="item">
+                <p><i class="icon ion-calendar"></i><br> {{event.startdate}} @ {{event.starttime}} - {{event.endtime}}</p>
+            </div>
+            <div class="item">
+                <iframe width="100%" height="150" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=Mumbai%2C%20Maharashtra%2C%20India&key=AIzaSyCPdr5VG2QmzUdpExEivaSEMjm0vI3_Su4"></iframe>
+                <p><i class="icon ion-location"></i><br>Mumbai Bank
+                    <br>{{event.location}}
+                    <br>400099</p>
+            </div>
+            <div class="item">
+                <p><i class="icon ion-person"></i>
+                    <br>by {{event.organizername}}</p>
+            </div>
+            <div class="item" ng-repeat="ticket in event.tickets"><span class="balanced">{{ticket.tickettype}}</span></div>
+        </div>
+        
+        <div class="padding">{{id}}{{uid}}
+            <a href="#/app/register/{{id}}/{{uid}}" class="button button-block button-calm">Register</a>
+        </div>
+
+    </ion-content>
+</ion-view>

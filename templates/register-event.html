@@ -1,0 +1,28 @@
+<ion-view title="Discover">
+    <ion-content class="has-header">
+        <ion-nav-buttons side="right">
+            <a class="button button-icon icon ion-bookmark" ng-click="saveevent()"></a>
+        </ion-nav-buttons>
+
+        <div class="img-header">{{demo}}
+            <img src="{{'http://localhost/eglapp11/demo/'+event.logo}}" class="full-image">
+        </div>
+        <img src="{{'http://localhost/eglapp11/demo/'+event.logo}}" class="discover-image">
+        <h4 class="text-center">{{event.title}}</h4>
+
+        <div class="list">
+            <div class="item">
+                1 Entry Free
+                <span class="item-note">
+                    Free
+                </span>
+            </div>
+        </div>
+
+        <div class="padding">
+            <button class="button button-block button-balanced" ng-click="eventRegistered();">Complete Order</button>
+        </div>
+
+        
+    </ion-content>
+</ion-view>

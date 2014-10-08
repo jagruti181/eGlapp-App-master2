@@ -1,0 +1,289 @@
+<ion-view title="Update Event">
+    <ion-content class="has-header">
+        
+        <div class="list">
+           <div class="item item-divider">
+               Update Event Details
+           </div>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Event Title*</span>
+                <input type="text" placeholder="Event Title*" ng-model="form.title" ng-class="allvalidation[0].validation" ng-class="allvalidation[0].validation" required>
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Venue*</span>
+                <input type="text" placeholder="Venue" ng-change="getmap(form.venue,form.street,form.pin,form.city,form.state)" ng-model="form.venue" ng-class="allvalidation[1].validation" required>
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Street Name*</span>
+                <input type="text" placeholder="Street Name" ng-change="getmap(form.venue,form.street,form.pin,form.city,form.state)" ng-model="form.street" ng-class="allvalidation[2].validation" required>
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Pin Code*</span>
+                <input type="text" placeholder="Location" ng-pattern="phoneNumberPattern" ng-change="getmap(form.venue,form.street,form.pin,form.city,form.state)" ng-model="form.pin" ng-class="allvalidation[3].validation" required>
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">City*</span>
+                <input type="text" placeholder="Location" ng-change="getmap(form.venue,form.street,form.pin,form.city,form.state)" ng-model="form.city" ng-class="allvalidation[4].validation" required>
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">State*</span>
+                <input type="text" placeholder="State" ng-change="getmap(form.venue,form.street,form.pin,form.city,form.state)" ng-model="form.state" ng-class="allvalidation[5].validation" required>
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Lat</span>
+                <input type="text" id="lat" placeholder="Lat" ng-model="form.locationlat" disabled>
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Lng</span>
+                <input type="text" id="lng" placeholder="Lng" ng-model="form.locationlon" disabled>
+            </label>
+            
+            <!--MAP##############################################-->
+            <center>
+            <a class="button button-block button-positive" onclick="initialize()" ng-click="showmap()">Get Map</a>
+            <a class="button button-block button-positive" ng-show="visible" ng-click="hidemap()">Close</a>
+            </center>
+
+            <div id="map_canvas"></div>
+            <!--MAP##############################################-->
+            
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Start Date</span>
+                <input type="date" ng-model="form.startdate" id="startdate" name="bdaytime" class="form-control date1" ng-change="startdatechange(form.startdate)" ng-class="allvalidation[6].validation" required>
+                <p class="invalidmsg">{{invalidmsg1}}</p>
+            </label>
+            <label class="item item-input item-select">
+                <div class="input-label">
+                    Start Time*
+                </div>
+                <select ng-model="form.starttime" ng-class="allvalidation[7].validation" required>					
+                    <option value="0:30">0:30</option>
+                    <option value="1:00">1:00</option>
+                    <option value="1:30">1:30</option>
+                    <option value="2:00">2:00</option>
+                    <option value="2:30">2:30</option>
+                    <option value="3:00">3:00</option>
+                    <option value="3:30">3:30</option>
+                    <option value="4:00">4:00</option>
+                    <option value="4:30">4:30</option>
+                    <option value="5:00">5:00</option>
+                    <option value="5:30">5:30</option>
+                    <option value="6:00">6:00</option>
+                    <option value="6:30">6:30</option>
+                    <option value="7:00">7:00</option>
+                    <option value="7:30">7:30</option>
+                    <option value="8:00">8:00</option>
+                    <option value="8:30">8:30</option>
+                    <option value="9:00">9:00</option>
+                    <option value="9:30">9:30</option>
+                    <option value="10:00">10:00</option>
+                    <option value="10:30">10:30</option>
+                    <option value="11:00">11:00</option>
+                    <option value="11:30">11:30</option>
+                    <option value="12:00">12:00</option>
+                    <option value="12:30">12:30</option>
+                    <option value="13:00">13:00</option>
+                    <option value="13:30">13:30</option>
+                    <option value="14:00">14:00</option>
+                    <option value="14:30">14:30</option>
+                    <option value="15:00">15:00</option>
+                    <option value="15:30">15:30</option>
+                    <option value="16:00">16:00</option>
+                    <option value="16:30">16:30</option>
+                    <option value="17:00">17:00</option>
+                    <option value="17:30">17:30</option>
+                    <option value="18:00">18:00</option>
+                    <option value="18:00">18:30</option>
+                    <option value="19:00">19:00</option>
+                    <option value="19:30">19:30</option>
+                    <option value="20:00">20:00</option>
+                    <option value="20:30">20:30</option>
+                    <option value="21:00">21:00</option>
+                    <option value="21:30<">21:30</option>
+                    <option value="22:00">22:00</option>
+                    <option value="22:30">22:30</option>
+                    <option value="23:00">23:00</option>
+                    <option value="23:30">23:30</option>
+                    <option value="24:00">24:00</option>
+                 </select>
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">End Date</span>
+                <input type="date" ng-model="form.enddate" id="enddate" name="bdaytime" class="form-control date1" ng-change="enddatechange(form.enddate)" required>
+                <p class="invalidmsg">{{invalidmsg}}</p>
+            </label>
+            <label class="item item-input item-select">
+                <div class="input-label">
+                    End Time*
+                </div>
+                <select ng-model="form.endtime" ng-class="allvalidation[8].validation" required>					
+                    <option value="0:30">0:30</option>
+                    <option value="1:00">1:00</option>
+                    <option value="1:30">1:30</option>
+                    <option value="2:00">2:00</option>
+                    <option value="2:30">2:30</option>
+                    <option value="3:00">3:00</option>
+                    <option value="3:30">3:30</option>
+                    <option value="4:00">4:00</option>
+                    <option value="4:30">4:30</option>
+                    <option value="5:00">5:00</option>
+                    <option value="5:30">5:30</option>
+                    <option value="6:00">6:00</option>
+                    <option value="6:30">6:30</option>
+                    <option value="7:00">7:00</option>
+                    <option value="7:30">7:30</option>
+                    <option value="8:00">8:00</option>
+                    <option value="8:30">8:30</option>
+                    <option value="9:00">9:00</option>
+                    <option value="9:30">9:30</option>
+                    <option value="10:00">10:00</option>
+                    <option value="10:30">10:30</option>
+                    <option value="11:00">11:00</option>
+                    <option value="11:30">11:30</option>
+                    <option value="12:00">12:00</option>
+                    <option value="12:30">12:30</option>
+                    <option value="13:00">13:00</option>
+                    <option value="13:30">13:30</option>
+                    <option value="14:00">14:00</option>
+                    <option value="14:30">14:30</option>
+                    <option value="15:00">15:00</option>
+                    <option value="15:30">15:30</option>
+                    <option value="16:00">16:00</option>
+                    <option value="16:30">16:30</option>
+                    <option value="17:00">17:00</option>
+                    <option value="17:30">17:30</option>
+                    <option value="18:00">18:00</option>
+                    <option value="18:00">18:30</option>
+                    <option value="19:00">19:00</option>
+                    <option value="19:30">19:30</option>
+                    <option value="20:00">20:00</option>
+                    <option value="20:30">20:30</option>
+                    <option value="21:00">21:00</option>
+                    <option value="21:30<">21:30</option>
+                    <option value="22:00">22:00</option>
+                    <option value="22:30">22:30</option>
+                    <option value="23:00">23:00</option>
+                    <option value="23:30">23:30</option>
+                    <option value="24:00">24:00</option>
+                 </select>
+            </label>
+            <label class="item item-input item-stacked-label">
+              <span class="input-label">Logo<br>Note * Upload 200px : 200px Image
+               </label>
+               <p>
+                    <img src="{{myimagepath}}admin/upload/sponsor/{{filename2}}">
+                    <button class="button button-icon icon ion-image" ng-click="takePicture();"></button>
+                    <img ng-src="{{cameraimage}}" alt="" style="height:50px;width:50px; margin:5px;">
+                </p>
+            
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Event Description</span>
+                <textarea placeholder="Event Description" ng-model="form.description"></textarea>
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Organiser Name</span>
+                <input type="text" placeholder="Organiser Name" ng-model="organizername" readonly>
+                <input type="hidden" placeholder="id" ng-model="form.organizer" readonly>
+            </label>
+            <span class="input-label">Condition</span>
+                   <p>Is this event strictly 21 and over?</p>
+            <label class="item item-radio">
+                
+                    <input type="radio" name="group3" ng-model="form.above18" value="1">
+                    <div class="item-content">
+                        Yes
+                    </div>
+                    <i class="radio-icon ion-checkmark-round"></i>
+                </label>
+                <label class="item item-radio">
+                    <input type="radio" name="group3" ng-model="form.above18" value="2">
+                    <div class="item-content">
+                        No
+                    </div>
+                    <i class="radio-icon ion-checkmark-round"></i>
+                </label>
+            <div class="item item-divider">
+                Create Tickets
+            </div>
+            <div class="item item-text-wrap">
+               <p>What type of ticket would you like to start with?</p> 
+                            <a class="button button-block button-positive" ng-click="addticket('Free')">Free Ticket</a>
+                            <div class="ticketdiv">
+                            <table class="table" style="width: 100%;">
+                                <tr>
+                                    <th style="border-right: 3px solid;">Ticket Name*</th>
+                                    <th style="border-right: 3px solid;">Quantity Available</th>
+                                    <th style="border-right: 3px solid;">Price</th>
+                                    <th colspan="2">Action</th>
+                                </tr>
+                                {{form.tickets[0].name}}
+                                <tr ng-repeat="ticket in form.tickets">
+                                    <td><input type="text" style="text-align: center;border-right: 3px solid;" ng-model="ticket.ticket" placeholder="Example:Early Bird"></td>
+                                    <td><input type="text" style="text-align: center;border-right: 3px solid;" ng-model="ticket.quantity" placeholder="100"></td>
+                                    <td><input type="text" style="text-align: center;border-right: 3px solid;" ng-model="ticket.amount" ng-show="ticket.tickettype!='Free'"></td>
+                                    <td><label style="text-align: center;" ng-model="ticket.tickettype">{{ticket.tickettype}}</label></td>
+                                    <td><a class="button button-block button-positive" style="text-align: center;" ng-click="remove($index)">Delete</a></td>
+                                </tr>
+                                
+                            </table>
+
+                            </div>
+            </div>
+            <div class="item item-divider">
+                Additional Settings
+            </div>
+
+                <label class="item item-radio">
+                    <input type="radio" name="group" ng-model="form.listingtype" value="1">
+                    <div class="item-content">
+                        Public Page
+                    </div>
+                    <i class="radio-icon ion-checkmark-round"></i>
+                </label>
+                <label class="item item-radio">
+                    <input type="radio" name="group" ng-model="form.listingtype" value="2">
+                    <div class="item-content">
+                        Private Page
+                    </div>
+                    <i class="radio-icon ion-checkmark-round"></i>
+                </label>
+                <span class="input-label">sponsorship</span>
+                <label class="item item-radio">
+                
+                    <input type="radio" name="group2" ng-model="form.sponsorship" value="1">
+                    <div class="item-content">
+                        Yes
+                    </div>
+                    <i class="radio-icon ion-checkmark-round"></i>
+                </label>
+                <label class="item item-radio">
+                    <input type="radio" name="group2" ng-model="form.sponsorship" value="2">
+                    <div class="item-content">
+                        No
+                    </div>
+                    <i class="radio-icon ion-checkmark-round"></i>
+                </label>
+
+                
+                <label class="item item-input item-select">
+                    <div class="input-label">
+                        Event Type
+                    </div>
+                    <select ng-model="form.category" id="category" ng-class="allvalidation[9].validation" required>
+                        <option ng-repeat="category in categories" value="{{category.id}}">{{category.name}}</option>
+                    </select>
+                </label>
+                <label class="item item-input item-select">
+                    <div class="input-label">
+                        Event Topic
+                    </div>
+                    <select ng-model="form.topic" id="topic" ng-class="allvalidation[10].validation" required>
+                       <option ng-repeat="topic in topics" value="{{topic.id}}">{{topic.name}}</option>
+                </select>
+                </label>
+            
+        </div>
+        <!-- <a class="button button-full button-balanced" ng-click="onsubmit(form)">Update Event</a> -->
+        <input type="submit" name="submit" value="Update Event" class="button button-block button-balanced" ng-click="onsubmit(form)">
+    </ion-content>
+</ion-view>

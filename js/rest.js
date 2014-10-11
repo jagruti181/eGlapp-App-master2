@@ -1,5 +1,7 @@
 var adminurl="http://digitalmindsinc.co/eglapp11/admin/index.php/";
 var apiServer ="http://digitalmindsinc.co/eglapp11/admin/index.php/";
+//var adminurl="http://localhost/eglapp11/admin/index.php/";
+//var apiServer ="http://localhost/eglapp11/admin/index.php/";
 var restservicemod = angular.module('restservicemod', [])
 .factory('RestService',function($http)
 {
@@ -75,11 +77,20 @@ var restservicemod = angular.module('restservicemod', [])
                       'sponsorship':data.sponsorship}
             });
         },
+        getprivateevents: function (email) {
+            return $http.get(adminurl+"event/getprivateevents?email="+email,{});
+        },
         saveorganizer: function (data) {
             return $http.get(adminurl+"user/update",{params:data});
         },
-        upcomingevents: function (data) {
-            return $http.get(adminurl+"event/upcomingevents?ipcity="+data,{});
+        signupemail:function(data){
+            return $http.get(adminurl+"event/signupemail?email="+data,{});
+        },
+        signup:function(data){
+            return $http.get(adminurl+"user/signup",{params:data});
+        },
+        upcomingevents: function (lat,long) {
+            return $http.get(adminurl+"event/upcomingevents",{lat:lat,long:long});
         },
         getipjson: function(data){
             return $http.get("http://jsonip.com?callback=",{});

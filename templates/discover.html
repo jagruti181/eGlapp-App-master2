@@ -5,10 +5,21 @@
         </ion-nav-buttons>
         <div class="list">
            
-            <div class="item item-divider">Events</div>
+            <div class="item item-divider" ng-show="privateshow">Private Events</div>
+            
+            <a class="item item-thumbnail-left" href="#/app/discover/inner/{{val.id}}" ng-repeat="val in privateevent">
+                <img src="{{imagepath+'event/'+val.logo}}">
+                <h2>{{val.title}}</h2>
+                <p>{{val.location}}</p>
+                <span class="date">{{val.startdate}} @ {{val.starttime}}<span>
+              <span class="item-note balanced">
+                  Free
+              </span>
+            </a>
+            <div class="item item-divider">Upcoming Events</div>
             
             <a class="item item-thumbnail-left" href="#/app/discover/inner/{{val.id}}" ng-repeat="val in find">
-                <img src="{{'http://localhost/eglapp11/demo/'+val.logo}}">
+                <img src="{{imagepath+'event/'+val.logo}}">
                 <h2>{{val.title}}</h2>
                 <p>{{val.location}}</p>
                 <span class="date">{{val.startdate}} @ {{val.starttime}}<span>

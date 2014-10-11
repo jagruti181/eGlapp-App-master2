@@ -5,7 +5,7 @@
         </ion-nav-buttons>
         <div class="list">
             <a class="item item-avatar" href="#/app/printticket/{{myticket.user}}/{{myticket.eventid}}" ng-repeat="myticket in data">
-                <img ng-src="{{'http://localhost/eglapp11/demo/'+myticket.logo}}">
+                <img ng-src="{{imagepath+'event/'+myticket.logo}}">
                 <h2>{{myticket.eventtitle}}</h2>
                 <span class="date">{{myticket.startdate}} @ 9:30 PM</span>
             </a>

@@ -16,6 +16,10 @@
     </header>
     <ion-content class="has-header">
       <ion-list>
+        <ion-item nav-clear class="item-icon-left" menu-close href="#/app/signup" ng-show="singupmode">
+            <i class="icon ion-person"></i>
+          Signup
+        </ion-item>
         <ion-item nav-clear class="item-icon-left" menu-close ng-click="login()">
             <i class="icon ion-person"></i>
           {{loginlogout}}

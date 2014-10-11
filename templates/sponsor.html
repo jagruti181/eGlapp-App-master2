@@ -35,10 +35,10 @@
             </div>
             <div class="row" ng-show="detail">
                <div class="col" ng-show="alldata.logo!=''">
-                   <img src="{{'http://localhost/eglapp11/demo/'+alldata.logo}}" class="full-image">
+                   <img src="{{imagepath+'event/'+alldata.logo}}" class="full-image">
                </div>
                <div class="col" ng-show="alldata.logo==''">
-                   <img src="{{'http://localhost/eglapp11/img/default_upload_logo.gif'}}" class="full-image">
+                   <img src="{{myimagepath+'img/default_upload_logo.gif'}}" class="full-image">
                </div>
                <div class="col">
                     <h4>When</h4>
@@ -165,7 +165,7 @@
             <label class="item item-input item-stacked-label">
                     <span class="input-label">Banner</span>
                     <p>
-                    <img src="{{myimagepath}}admin/upload/sponsor/{{filename2}}">
+                    <img src="{{imagepath+'sponsor/'+filename2}}">
                     <button class="button button-icon icon ion-image" ng-click="takePicture();"></button>
                     <img ng-src="{{cameraimage}}" alt="" style="height:50px;width:50px; margin:5px;">
                 </p>

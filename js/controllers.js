@@ -1,150 +1,29 @@
 var mypopup=0;
 var bigpath="http://digitalmindsinc.co/eglapp11/";
+var imagepath="http://digitalmindsinc.co/eglapp11/admin/upload/";
 var server = 'http://digitalmindsinc.co/eglapp11/admin/index.php/';
+//var bigpath="http://localhost/eglapp11/";
+//var server = 'http://localhost/eglapp11/admin/index.php/';
+
+var lat = 0;
+var long = 0;
 var authenticate=$.jStorage.get("authenticate");
 window.uploadUrl = 'upload.php';
 angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngCordova'])
-//...........................upload image
 
-.controller('MyCtrl', function($scope, $http, $timeout, $upload,RestService) {
-	$scope.usingFlash = FileAPI && FileAPI.upload != null;
-	$scope.fileReaderSupported = window.FileReader != null && (window.FileAPI == null || FileAPI.html5 != false);
-	$scope.uploadRightAway = true;
-	$scope.changeAngularVersion = function() {
-		window.location.hash = $scope.angularVersion;
-		window.location.reload(true);
-	};
-	$scope.hasUploader = function(index) {
-		return $scope.upload[index] != null;
-	};
-	$scope.abort = function(index) {
-		$scope.upload[index].abort(); 
-		$scope.upload[index] = null;
-	};
-	$scope.angularVersion = window.location.hash.length > 1 ? (window.location.hash.indexOf('/') === 1 ? 
-			window.location.hash.substring(2): window.location.hash.substring(1)) : '1.2.20';
-	$scope.onFileSelect = function($files) {
-		$scope.selectedFiles = [];
-		$scope.progress = [];
-		if ($scope.upload && $scope.upload.length > 0) {
-			for (var i = 0; i < $scope.upload.length; i++) {
-				if ($scope.upload[i] != null) {
-					$scope.upload[i].abort();
-				}
-			}
-		}
-		$scope.upload = [];
-		$scope.uploadResult = RestService.getuploads();
-		$scope.selectedFiles = $files;
-		$scope.dataUrls = [];
-		for ( var i = 0; i < $files.length; i++) {
-			var $file = $files[i];
-			if ($scope.fileReaderSupported && $file.type.indexOf('image') > -1) {
-				var fileReader = new FileReader();
-				fileReader.readAsDataURL($files[i]);
-				var loadFile = function(fileReader, index) {
-					fileReader.onload = function(e) {
-						$timeout(function() {
-							$scope.dataUrls[index] = e.target.result;
-						});
-					}
-				}(fileReader, i);
-			}
-			$scope.progress[i] = -1;
-			if ($scope.uploadRightAway) {
-				$scope.start(i);
-			}
-		}
-	};
-	
-	$scope.start = function(index) {
-		$scope.progress[index] = 0;
-		$scope.errorMsg = null;
-		if ($scope.howToSend == 1) {
-			$scope.upload[index] = $upload.upload({
-				url: uploadUrl,
-				method: $scope.httpMethod,
-				headers: {'my-header': 'my-header-value'},
-				data : {
-					myModel : $scope.myModel
-				},
-				/* formDataAppender: function(fd, key, val) {
-					if (angular.isArray(val)) {
-                        angular.forEach(val, function(v) {
-                          fd.append(key, v);
-                        });
-                      } else {
-                        fd.append(key, val);
-                      }
-				}, */
-				/* transformRequest: [function(val, h) {
-					console.log(val, h('my-header')); return val + '-modified';
-				}], */
-				file: $scope.selectedFiles[index],
-				fileFormDataName: 'file'
-			});
-			$scope.upload[index].then(function(response) {
-				$timeout(function() {
-					$scope.uploadResult.push(response.data);
-                   
-				});
-			}, function(response) {
-				if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
-			}, function(evt) {
-				// Math.min is to fix IE which reports 200% sometimes
-				$scope.progress[index] = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-			});
-			$scope.upload[index].xhr(function(xhr){
-//				xhr.upload.addEventListener('abort', function() {console.log('abort complete')}, false);
-			});
-		} else {
-			var fileReader = new FileReader();
-            fileReader.onload = function(e) {
-		        $scope.upload[index] = $upload.http({
-		        	url: uploadUrl,
-					headers: {'Content-Type': $scope.selectedFiles[index].type},
-					data: e.target.result
-		        }).then(function(response) {
-					$scope.uploadResult.push(response.data);
-				}, function(response) {
-					if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
-				}, function(evt) {
-					// Math.min is to fix IE which reports 200% sometimes
-					$scope.progress[index] = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-				});
-            }
-	        fileReader.readAsArrayBuffer($scope.selectedFiles[index]);
-		}
-	};
-	
-	$scope.dragOverClass = function($event) {
-		var items = $event.dataTransfer.items;
-		var hasFile = false;
-		if (items != null) {
-			for (var i = 0 ; i < items.length; i++) {
-				if (items[i].kind == 'file') {
-					hasFile = true;
-					break;
-				}
-			}
-		} else {
-			hasFile = true;
-		}
-		return hasFile ? "dragover" : "dragover-err";
-	};
-})
-//...........................upload image
 .controller('AppCtrl', function($scope, $ionicModal, $timeout, RestService) {
   // Form data for the login modal
   $scope.loginData = {};
    $scope.loginlogout="Login";
     $scope.isloggedin=0;
+    $scope.singupmode=true;
     //authentication
     
         if(RestService.authenticate()!=false)
           {
             //$scope.uid=data.id;
              // console.log(data.id);
+              $scope.singupmode=false;
             $scope.isloggedin=1;
             $scope.loginlogout="Logout";
           }
@@ -160,6 +39,7 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
   // Triggered in the login modal to close it
   $scope.closeLogin = function() {
     $scope.modal.hide();
+    $ionicModal.fromTemplateUrl('templates/discover.html');
   },
 
   // Open the login modal
@@ -171,11 +51,11 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
           var logout=function(data, status){
             $scope.loginlogout="Login";
             $scope.isloggedin=0;
+              $scope.singupmode=true;
           };
         RestService.logout().success(logout);
       }
   };
-
   // Perform the login action when the user submits the login form
     var loginn=function(data, status){
        $.jStorage.set('authenticate',data);
@@ -183,6 +63,7 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
         console.log(authenticate.id);
         $scope.isloggedin=1;
             $scope.loginlogout="Logout";
+        $scope.singupmode=false;
     };
   $scope.doLogin = function() {
     console.log('Doing login', $scope.loginData);
@@ -193,6 +74,63 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
       $scope.closeLogin();
     }, 1000);
   };
+})
+
+.controller('SignupCtrl', function($scope, $ionicModal, $timeout, RestService, $location) {
+  $scope.inctrl="hello";
+    $scope.demo="";
+        $scope.closeSignup=function(){
+        
+        };
+        var signupsend=function(data, status){
+            console.log(data);
+        };
+        
+        var saved = function (data, status) {
+            console.log(data);
+            var check2 = typeof data;
+            console.log(check2);
+            if (check2 == "string") {
+                $scope.demo = "Email Already Exist";
+            } else {
+                $scope.demo = "SignUp Successful"
+                $location.url("/discover");
+                RestService.signupemail(data.email).success(signupsend);
+            }
+            //$scope.demo="Record saved";
+        };
+        $scope.allvalidation = [];
+        $scope.signup = function (login) {
+            console.log(login);
+            $scope.allvalidation = [{
+                field: $scope.loginData.email,
+                validation: ""
+             }, {
+                field: $scope.loginData.password,
+                validation: ""
+             }];
+            var check = formvalidation();
+            console.log(check);
+            if (check) {
+                RestService.signup(login).success(saved);
+            }
+
+        };
+
+        function formvalidation() {
+            var isvalid2 = true;
+            for (var i = 0; i < $scope.allvalidation.length; i++) {
+                console.log("checking");
+                console.log($scope.allvalidation[i].field);
+                if ($scope.allvalidation[i].field == "" || !$scope.allvalidation[i].field) {
+                    $scope.allvalidation[i].validation = "ng-dirty";
+                    isvalid2 = false;
+                }
+            }
+            return isvalid2;
+        }
+
+
 })
 
 .controller('RegisterEvent',function($scope, $ionicPopup, $timeout, $stateParams, RestService) {
@@ -228,34 +166,62 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
 })
         
 .controller('DiscoverCtrl', function($scope, $stateParams, RestService) {
+        $scope.imagepath=imagepath;
+        function showPosition2(position) {
+            var latlon = position.coords.latitude + "," + position.coords.longitude;
+            console.log("Positions:.........");
+            console.log(position.coords);
+            $scope.coords = position.coords;
+            lat = position.coords.latitude;
+            long = position.coords.longitude;
+        }
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition2, showError);
+        } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+        
+        $scope.privateshow=true;
+        var getprivateevents = function (data, status) {
+            console.log(data);
+            if(data=="")
+            {
+                $scope.privateshow=false;
+            }
+            $scope.privateevent = data;
+        };
+        if(RestService.authenticate()!=false)
+          {
+	          RestService.getprivateevents(authenticate.id).success(getprivateevents);
+              $scope.uid=authenticate.id;
+              $scope.isloggedin=1;
+              $scope.singupmode=false;
+              $scope.loginlogout="Logout";
+          }
+    
         var home=function(data, status){
             console.log(data);
             $scope.find=data;
         };
-        console.log(geoplugin_city());
-        RestService.upcomingevents(geoplugin_city()).success(home);
-       /* var iplatlong = function (data, status){
-                    //console.log(data.city);
-            console.log(data);
-                    $scope.ipcity=data.city;
-                    console.log($scope.ipcity);
-                RestService.upcomingevents($scope.ipcity).success(home);
-                    };
-                    var ipjson = function (data, status){
-                        //console.log(data.ip);
-                        $scope.myip=data.ip;
-                        console.log($scope.myip);
-                        RestService.getiplatlongjson(data.ip).success(iplatlong);
-                    };
-                    RestService.getipjson().success(ipjson);*/
-        //$scope.id="3";
-       // RestService.find().success(home);
+        RestService.upcomingevents(lat,long).success(home);
+    
+        
+        
 })        
 .controller('MyeventsCtrl', function($scope, $stateParams, RestService) {
         $scope.imagepath=bigpath;
+    $scope.singupmode=true;
+    $scope.msg="";
        var home=function(data, status){
-            console.log(data);
+           if(data=='')
+           {
+               $scope.msg="No Events Found";
+           }else{
+               $scope.msg="";
             $scope.find=data;
+           }
+            console.log(data);
         };
     //aunthenticate
        
@@ -264,6 +230,7 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
               RestService.find(authenticate.id).success(home);
               $scope.uid=authenticate.id;
               $scope.isloggedin=1;
+              $scope.singupmode=false;
               $scope.loginlogout="Logout";
           }
         
@@ -291,14 +258,15 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
     
      console.log("my upload");
         $scope.myimgapath=bigpath;
+    $scope.singupmode=true;
      console.log($scope.myimgapath);
-    
      $scope.myupload=RestService.getuploads();
     $scope.getlast=function() {
         return $scope.myupload[$scope.myupload.length-1];
     };
     //aunthenticate
-       
+           $scope.filename2=0;
+
 	   var user = function (data, status) {
 	            console.log(data);
 	            $scope.organizer = {};
@@ -309,6 +277,7 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
 	          RestService.findoneuser(authenticate.id).success(user);
               $scope.uid=authenticate.id;
               $scope.isloggedin=1;
+              $scope.singupmode=false;
               $scope.loginlogout="Logout";
           }
         
@@ -417,7 +386,7 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
     
 })       
 .controller('SponsorCtrl', function($scope, $stateParams, RestService, CategoryService, TopicService, $http, $timeout, $upload, $cordovaCamera, $cordovaFile) {
-    
+    $scope.imagepath=imagepath;
     //alert(geoplugin_city());
     $scope.myimagepath=bigpath;
     $scope.sponsor = {};
@@ -541,7 +510,9 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
 	    //start get one perticular event details
         var validatingsponsor=function(data, status){
             console.log(data);
-            if(data=="false")
+            var check2 = typeof data;
+            console.log(check2);
+            if (check2 == "string")
             {
                 confirm("Already Have Banner");
                 $scope.savebutton=false;
@@ -560,7 +531,7 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
 	        //alert("Saved");
 	        $scope.greendiv[data] = "greendiv";
             $scope.savebutton=false;
-
+            alert("Sponsorship Saved");
 	    };
     
     //Capture Image
@@ -633,7 +604,7 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
 .controller('DiscoverinnerCtrl', function($scope, $stateParams, RestService) {
         $scope.id=$stateParams.id;
         console.log($scope.id);
-    
+        $scope.imagepath=imagepath;
     //aunthenticate
        
         if(RestService.authenticate()!=false)
@@ -784,6 +755,7 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
 	        };
 	        //####################################################3DATE VALIDATION###########################################################
     //Capture Image
+    $scope.filename2=0;
     $scope.cameraimage = bigpath+"img/favicon.png";
     $scope.takePicture = function () {
         var options = {
@@ -902,7 +874,7 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
 	                console.log("completed");
 	                console.log("Myform:");
 	                console.log(form);
-                    if($scope.filename2 || $scope.filename2=="")
+                    if($scope.filename2==0)
                     {
                         form.logo=form.logo;
                     }else{
@@ -945,8 +917,10 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
 })
 
 
-.controller('MyticketsCtrl', function($scope, $stateParams, RestService, $cordovaBarcodeScanner) {
+.controller('MyticketsCtrl', function($scope,$ionicModal, $timeout, $stateParams, RestService, $cordovaBarcodeScanner, $location) {
+    $scope.imagepath=imagepath;
     //Barcode Scanner
+    
     $scope.scanBarcode = function() {
         $cordovaBarcodeScanner.scan().then(function(imageData) {
             // Success! Barcode data is here
@@ -974,7 +948,43 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
               console.log(authenticate);
             $scope.isloggedin=1;
             $scope.loginlogout="Logout";
+          }else{
+              $scope.login();
           }
+    //dfslkjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
+    // Create the login modal that we will use later
+  $ionicModal.fromTemplateUrl('templates/login.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+
+  // Triggered in the login modal to close it
+  $scope.closeLogin = function() {
+    $scope.modal.hide();
+  },
+
+  // Open the login modal
+  $scope.login = function() {
+      if($scope.isloggedin==0)
+      {
+        $scope.modal.show();
+      }else{
+          var logout=function(data, status){
+            $scope.loginlogout="Login";
+            $scope.isloggedin=0;
+          };
+        RestService.logout().success(logout);
+      }
+  };
+// Triggered in the login modal to close it
+  $scope.closeLogin = function() {
+    $scope.modal.hide();
+    $ionicModal.fromTemplateUrl('templates/discover.html');
+  };
+
+    //dfslkjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
+    
         
     
 })
@@ -1250,7 +1260,7 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
 .controller('PrintticketCtrl', function($scope, $stateParams, RestService, $timeout) {
     $scope.uid=$stateParams.uid;
     $scope.id=$stateParams.id;
-    
+    $scope.imagepath=imagepath;
         $scope.prebanner=true;
         $scope.qrcode=false;
         //timeout
@@ -1273,7 +1283,7 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
                 {
                     for(var j=1 ; j <= 6 ; j++)
                     {
-                            $scope.image[j]="../img/sponsor/nobanner.jpg";
+                            $scope.image[j]="nobanner.jpg";
                     }
                 }
 	            $scope.printticket = data;
@@ -1300,7 +1310,7 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
                         }
                         if(!$scope.image[j])
                         {
-                            $scope.image[j]="../img/sponsor/nobanner.jpg";
+                            $scope.image[j]="nobanner.jpg";
                         }
                     }
                     
@@ -1311,6 +1321,7 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
 })
 
 .controller('SavedeventsCtrl', function($scope, $stateParams, RestService) {
+    $scope.imagepath=imagepath;
     //aunthenticate
         var getevents=function(data, status){
         console.log(data);

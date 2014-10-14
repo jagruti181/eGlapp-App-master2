@@ -193,7 +193,7 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
         };
         if(RestService.authenticate()!=false)
           {
-	          RestService.getprivateevents(authenticate.id).success(getprivateevents);
+	          RestService.getprivateevents(authenticate.email).success(getprivateevents);
               $scope.uid=authenticate.id;
               $scope.isloggedin=1;
               $scope.singupmode=false;
